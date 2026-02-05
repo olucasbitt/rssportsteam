@@ -78,7 +78,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div className={`lg:hidden fixed inset-0 top-0 left-0 w-full h-screen bg-white z-[99] transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
+      <div className={`lg:hidden fixed inset-0 top-0 left-0 w-full h-screen bg-deepBlack z-[99] transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
         <div className="flex flex-col items-center justify-center h-full gap-8 p-10">
           {navLinks.map((link) => (
             <a 
@@ -121,7 +121,7 @@ const Hero = () => (
     <div className="absolute inset-0 bg-[#0B0B0B]">
       {/* Onix Verde - Representação Visual Premium */}
       <img 
-        src="./imagens/onix.jpeg" 
+        src="/imagens/onix.jpeg" 
         alt="Chevrolet Onix Performance" 
         className="absolute inset-0 w-full h-full object-cover opacity-35 scale-105 contrast-125 saturate-150 grayscale-0 brightness-75"
       />
@@ -170,7 +170,7 @@ const About = () => (
           <div className="relative aspect-[4/3] overflow-hidden bg-graphite shadow-2xl border border-white/5">
             {/* Foto Onix Verde Preparado */}
             <img 
-              src="./imagens/polo_onix.jpg" 
+              src="/imagens/polo_onix.jpg" 
               alt="Corrida" 
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-75 contrast-110" 
             />
@@ -223,7 +223,7 @@ const DriverProfile = () => (
             <div className="relative z-10 overflow-hidden bg-deepBlack border-b-4 border-racingYellow skew-box shadow-xl aspect-[4/5]">
              
               <img 
-                src="./imagens/rodrigo.jpeg" 
+                src="/imagens/rodrigo.jpeg" 
                 alt="Rodrigo Sucata - Piloto & Team Principal" 
                 className="w-full h-full object-cover scale-105 skew-box-reverse hover:scale-110 transition-all duration-700 brightness-75 contrast-125 saturate-110"
 
