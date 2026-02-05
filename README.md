@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/imagens/logo2.jpeg" width="300" alt="RSSports Team Logo" />
+  <img src="public/imagens/logo2.jpeg" width="300" alt="RSSports Team Logo" />
 </div>
 
 # RSSports Team — Engenharia & Performance
