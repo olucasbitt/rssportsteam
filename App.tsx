@@ -360,61 +360,189 @@ const SponsorsMarquee = () => (
       ))}
     </div>
   </section>
-);
+); 
 
-const Contact = () => (
-  <section id="contact" className="py-24 bg-deepBlack">
-    <div className="container mx-auto px-6">
-      <div className="max-w-5xl mx-auto glass-card overflow-hidden shadow-2xl">
-        <div className="grid lg:grid-cols-2">
-          <div className="p-12 bg-racingYellow text-deepBlack">
-            <h3 className="text-2xl font-racing font-black uppercase italic mb-6 leading-none">Acelere <br/>Conosco</h3>
-            <p className="font-bold text-sm mb-10 opacity-80 uppercase tracking-tight leading-snug">
-              Torne sua marca parceira oficial da RSSports Team e conquiste visibilidade nacional.
-            </p>
-            
-            <div className="space-y-8">
-              <div className="flex items-center gap-5">
-                <div className="w-11 h-11 bg-deepBlack text-white flex items-center justify-center shadow-lg">
-                  <MessageSquare size={20} />
+const Contact = () => {
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    interest: "Patrocínio",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("https://formspree.io/f/xgolwpdj", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      setSubmitted(true);
+    } else {
+      alert("Erro ao enviar. Tente novamente.");
+    }
+  };
+
+  return (
+    <section id="contact" className="py-24 bg-deepBlack">
+      <div className="container mx-auto px-6">
+        <div className="max-w-5xl mx-auto glass-card overflow-hidden shadow-2xl">
+          <div className="grid lg:grid-cols-2">
+            <div className="p-12 bg-racingYellow text-deepBlack">
+              <h3 className="text-2xl font-racing font-black uppercase italic mb-6 leading-none">
+                Acelere <br />
+                Conosco
+              </h3>
+              <p className="font-bold text-sm mb-10 opacity-80 uppercase tracking-tight leading-snug">
+                Torne sua marca parceira oficial da RSSports Team e conquiste visibilidade nacional.
+              </p>
+
+              <div className="space-y-8">
+                <div className="flex items-center gap-5">
+                  <div
+                    className="w-11 h-11 bg-deepBlack text-white flex items-center justify-center shadow-lg"
+                    role="img"
+                    aria-label="WhatsApp Icon"
+                  >
+                    <MessageSquare size={20} />
+                  </div>
+                  <div>
+                    <p className="text-[8px] font-black uppercase tracking-widest opacity-60">WhatsApp</p>
+                    <p className="font-racing text-base">+55 (51) 98765.4321</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[8px] font-black uppercase tracking-widest opacity-60">WhatsApp</p>
-                  <p className="font-racing text-base">+55 (51) 98765.4321</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-5">
-                <div className="w-11 h-11 bg-deepBlack text-white flex items-center justify-center shadow-lg">
-                  <Award size={20} />
-                </div>
-                <div>
-                  <p className="text-[8px] font-black uppercase tracking-widest opacity-60">Sede Técnica</p>
-                  <p className="font-racing text-base uppercase">Tarumã, RS</p>
+                <div className="flex items-center gap-5">
+                  <div
+                    className="w-11 h-11 bg-deepBlack text-white flex items-center justify-center shadow-lg"
+                    role="img"
+                    aria-label="Sede Técnica Icon"
+                  >
+                    <Award size={20} />
+                  </div>
+                  <div>
+                    <p className="text-[8px] font-black uppercase tracking-widest opacity-60">Sede Técnica</p>
+                    <p className="font-racing text-base uppercase">Tarumã, RS</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="p-12 bg-deepBlack/40">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="space-y-1">
-                <label className="text-[8px] font-black uppercase tracking-widest text-white/40">Nome / Marca</label>
-                <input type="text" className="w-full bg-transparent border-b border-white/10 py-3 text-white focus:border-racingYellow outline-none transition-all text-xs" placeholder="Sua Empresa" />
-              </div>
-              <div className="space-y-1">
-                <label className="text-[8px] font-black uppercase tracking-widest text-white/40">E-mail</label>
-                <input type="email" className="w-full bg-transparent border-b border-white/10 py-3 text-white focus:border-racingYellow outline-none transition-all text-xs" placeholder="contato@empresa.com" />
-              </div>
-              <button className="w-full border border-racingYellow text-racingYellow hover:bg-racingYellow hover:text-deepBlack py-4 font-black uppercase tracking-[0.2em] transition-all text-[10px] skew-box">
-                Enviar Requisição
-              </button>
-            </form>
+            <div className="p-8 bg-deepBlack/40">
+              {!submitted ? (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Nome / Marca */}
+                  <div className="space-y-0.5">
+                    <label className="text-[8px] font-black uppercase tracking-widest text-white/40">
+                      Nome / Marca
+                    </label>
+                    <input
+                      name="name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:border-racingYellow outline-none transition-all text-xs"
+                      placeholder="Sua Empresa"
+                    />
+                  </div>
+
+                  {/* E-mail */}
+                  <div className="space-y-0.5">
+                    <label className="text-[8px] font-black uppercase tracking-widest text-white/40">
+                      E-mail
+                    </label>
+                    <input
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:border-racingYellow outline-none transition-all text-xs"
+                      placeholder="contato@empresa.com"
+                    />
+                  </div>
+
+                  {/* Telefone */}
+                  <div className="space-y-0.5">
+                    <label className="text-[8px] font-black uppercase tracking-widest text-white/40">
+                      Telefone
+                    </label>
+                    <input
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:border-racingYellow outline-none transition-all text-xs"
+                      placeholder="(51) 99999-9999"
+                    />
+                  </div>
+
+                  {/* Interesse */}
+                  <div className="space-y-0.5">
+                    <label className="text-[8px] font-black uppercase tracking-widest text-white/40">
+                      Interesse
+                    </label>
+                    <select
+                      name="interest"
+                      value={formData.interest}
+                      onChange={handleChange}
+                      className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:border-racingYellow outline-none transition-all text-xs"
+                    >
+                      <option className="bg-deepBlack">Patrocínio</option>
+                      <option className="bg-deepBlack">Projeto de Veículo</option>
+                      <option className="bg-deepBlack">Parceria Técnica</option>
+                      <option className="bg-deepBlack">Outro</option>
+                    </select>
+                  </div>
+
+                  {/* Mensagem */}
+                  <div className="space-y-0.5">
+                    <label className="text-[8px] font-black uppercase tracking-widest text-white/40">
+                      Mensagem
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={2}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:border-racingYellow outline-none transition-all text-xs resize-none"
+                      placeholder="Descreva brevemente sua proposta..."
+                    />
+                  </div>
+
+                  {/* Botão */}
+                  <button
+                    type="submit"
+                    className="w-full border border-racingYellow text-racingYellow hover:bg-racingYellow hover:text-deepBlack py-3 font-black uppercase tracking-[0.2em] transition-all text-[10px] skew-box"
+                  >
+                    Enviar
+                  </button>
+                </form>
+              ) : (
+                <div className="text-center text-racingYellow font-black text-sm uppercase tracking-wide py-20">
+                  Sua solicitação foi recebida, <br /> em breve a RSSports Team entrará em contato.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
+ 
+
 
 const Footer = () => (
   <footer className="py-16 bg-deepBlack border-t border-white/5">
