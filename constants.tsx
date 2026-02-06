@@ -39,7 +39,7 @@ export const FEATURES = [
   {
     icon: <Trophy className="w-8 h-8 text-racingYellow" />,
     title: 'Engenharia Multimarcas',
-    description: 'Expertise técnica em plataformas Onix, Etios, BMW, Polo, Audi e projetos próprios customizados.'
+    description: 'Visão técnica abrangente para extrair o máximo desempenho de cada veículo, atuando em diferentes fabricantes, categorias e arquiteturas técnicas.'
   },
   {
     icon: <Gauge className="w-8 h-8 text-racingYellow" />,

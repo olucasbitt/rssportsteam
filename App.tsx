@@ -261,48 +261,72 @@ const About = () => (
   <section id="about" className="py-24 bg-deepBlack relative overflow-hidden">
     <div className="container mx-auto px-6">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
+        
+        {/* Imagem */}
         <div className="relative group">
           <div className="absolute -inset-3 border border-racingYellow/20 translate-x-3 translate-y-3 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500"></div>
+           		  
           <div className="relative aspect-[4/3] overflow-hidden bg-graphite shadow-2xl border border-white/5">
-            {/* Foto Onix Verde Preparado */}
             <img 
-              src="/imagens/polo_onix.jpg" 
-              alt="Corrida" 
+              src="/imagens/carreta2.jpg" 
+              alt="RSSports Team em corrida" 
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-75 contrast-110" 
             />
+			
+            {/* Badge */}
             <div className="absolute bottom-4 left-4 bg-racingYellow p-4 skew-box shadow-xl">
               <div className="skew-box-reverse flex flex-col">
-                <span className="text-deepBlack font-black text-xl font-racing italic leading-none">MULTIMARCAS</span>
-                <span className="text-deepBlack/60 text-[8px] font-bold uppercase tracking-widest mt-1">Engenharia de Pista</span>
+                <span className="text-deepBlack font-black text-lg md:text-xl font-racing italic leading-none tracking-wide">
+                  Engenharia de operação
+                </span>
+                <span className="text-deepBlack/60 text-[8px] font-bold uppercase tracking-widest mt-1">
+                  DO BOX AO PÓDIO
+                </span>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Texto */}
         <div>
-          <SectionHeading subtitle="Sobre a Equipe" title="Expertise Sem Limites" />
-          <div className="space-y-4 text-white/70 text-base leading-relaxed mb-10">
-				<p>
-				  A <span className="text-white font-bold">RSSports Team</span> nasceu da paixão pelo automobilismo e da busca constante por performance real em pista. Fundada por <span className="text-white font-bold">Rodrigo Sucata</span>, a equipe construiu sua trajetória unindo experiência prática, engenharia aplicada e mentalidade competitiva.
-				</p>
-				<p>
-				  Com base no <span className="text-white font-bold">box de competição</span> em <span className="text-racingYellow italic font-bold">Tarumã (RS)</span>, a RSSports evoluiu dentro do ambiente de corrida, transformando conhecimento técnico em resultados concretos. Cada projeto carrega a mesma filosofia: <span className="text-white font-bold italic">preparação extrema, decisões estratégicas e foco absoluto em vitória</span>.
-				</p>
-			</div>
+          <SectionHeading subtitle="Sobre a Equipe" title="Engenharia de Pista" />
           
+          <div className="space-y-4 text-white/70 text-base leading-relaxed mb-10 max-w-xl">
+            <p>
+              A <span className="text-white font-bold">RSSports Team</span> nasceu da paixão pelo automobilismo e da busca constante por performance real. Fundada por <span className="text-white font-bold">Rodrigo “Sucata” Dimare</span>, a equipe construiu sua trajetória unindo experiência de pista, engenharia aplicada e mentalidade competitiva.
+            </p>
+
+            <p>
+              Com base no <span className="text-white font-bold">box de competição</span> em <span className="text-racingYellow italic font-bold">Tarumã (RS)</span>, a RSSports evoluiu dentro do ambiente de corrida, transformando conhecimento técnico em resultados concretos. Cada projeto segue a mesma filosofia: <span className="text-white font-bold italic">preparação extrema, decisões estratégicas e foco total em vitória</span>.
+            </p>
+
+            <p>
+              Além do desenvolvimento técnico, a RSSports assume a <span className="text-white font-bold">operação completa de pista</span>: logística, estratégia e tomada de decisão em tempo real, do box ao autódromo, com foco em extrair o máximo desempenho e disputar o pódio em cada prova.
+            </p>
+          </div>
+
+          {/* Features */}
           <div className="grid grid-cols-2 gap-4">
             {FEATURES.map((feature, idx) => (
-              <div key={idx} className="flex gap-3 p-4 glass-card group hover:bg-racingYellow/5 transition-colors border-l-2 border-l-transparent hover:border-l-racingYellow">
+              <div 
+                key={idx} 
+                className="flex gap-3 p-4 glass-card group hover:bg-racingYellow/5 transition-colors border-l-2 border-l-transparent hover:border-l-racingYellow"
+              >
                 <div className="text-racingYellow group-hover:scale-110 transition-transform">
                   {React.cloneElement(feature.icon as React.ReactElement<any>, { size: 24 })}
                 </div>
                 <div>
-                  <h4 className="font-racing font-bold uppercase text-white text-[11px] mb-1">{feature.title}</h4>
-                  <p className="text-[10px] text-white/50 leading-snug">{feature.description}</p>
+                  <h4 className="font-racing font-bold uppercase text-white text-[11px] mb-1">
+                    {feature.title}
+                  </h4>
+                  <p className="text-[10px] text-white/50 leading-snug">
+                    {feature.description}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </div>
@@ -312,71 +336,93 @@ const About = () => (
 const DriverProfile = () => (
   <section id="sucata" className="py-24 bg-gradient-to-b from-deepBlack to-graphite/20">
     <div className="container mx-auto px-6">
-      <div className="grid lg:grid-cols-12 gap-12 items-center">
-        <div className="lg:col-span-5 order-2 lg:order-1">
+      
+      <div className="grid gap-12 items-center lg:grid-cols-12">
+        
+        {/* IMAGEM - SEMPRE ESQUERDA */}
+        <div className="lg:col-span-5">
           <div className="relative max-w-md mx-auto lg:mx-0">
             <div className="absolute -inset-4 border border-racingYellow opacity-20 skew-box"></div>
+            
             <div className="relative z-10 overflow-hidden bg-deepBlack border-b-4 border-racingYellow skew-box shadow-xl aspect-[4/5]">
-             
               <img 
                 src="/imagens/rodrigo.jpeg" 
                 alt="Rodrigo Sucata - Piloto & Team Principal" 
                 className="w-full h-full object-cover scale-105 skew-box-reverse hover:scale-110 transition-all duration-700 brightness-75 contrast-125 saturate-110"
-
               />
+              
               <div className="absolute inset-0 bg-gradient-to-t from-deepBlack/90 via-transparent to-transparent"></div>
+              
               <div className="absolute bottom-6 left-6">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-[2px] bg-racingYellow"></div>
-                    <span className="text-white font-racing font-black italic text-lg tracking-tighter uppercase text-nowrap">Rodrigo "Sucata" Dimare</span>
+                  <div className="w-8 h-[2px] bg-racingYellow"></div>
+                  <span className="text-white font-racing font-black italic text-lg tracking-tighter uppercase">
+                    Rodrigo "Sucata" Dimare
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="lg:col-span-7 order-1 lg:order-2">
+
+        {/* TEXTO - SEMPRE DIREITA */}
+        <div className="lg:col-span-7">
           <SectionHeading subtitle="Liderança" title="O Comandante da Operação" />
+          
           <h3 className="text-lg font-racing font-bold italic text-white mb-6 border-l-4 border-racingYellow pl-5">
             Piloto & Chefe de Equipe
           </h3>
-          <p className="text-white/100 text-lg italic mb-8 leading-relaxed font-light">
+
+          <p className="text-white text-lg italic mb-8 leading-relaxed font-light">
             "Em endurance, não vence o mais rápido. Vence quem erra menos por mais tempo."
           </p>
-		  <p className="space-y-4 text-white/70 text-base leading-relaxed mb-10">
-			A trajetória de <span className="text-white font-bold">Rodrigo “Sucata” Dimare</span>  começou no automobilismo resolvendo problemas dentro de oficina antes mesmo de liderar equipes na pista. A vivência prática, somada à obsessão por performance, moldou a base técnica e a mentalidade competitiva da equipe.
-		  </p>
-		  <p className="space-y-4 text-white/70 text-base leading-relaxed mb-10">
-			Hoje, como <span className="text-white font-bold">piloto e chefe de equipe</span>, Rodrigo comanda cada detalhe da operação a partir do <span className="text-white font-bold">box de competição</span> em <span className="text-racingYellow italic font-bold">Tarumã (RS)</span>, transformando engenharia aplicada em resultado real. A filosofia segue a mesma desde o início: <span className="text-white font-bold italic">entender o carro por completo, tomar decisões sob pressão e competir para vencer — sempre</span>.
-		  </p>
-		  <br />
-		 
-		 
+
+          <p className="text-white/70 text-base leading-relaxed mb-6">
+            A trajetória de <span className="text-white font-bold">Rodrigo “Sucata” Dimare</span> começou no automobilismo resolvendo problemas dentro de oficina antes mesmo de liderar equipes na pista. A vivência prática, somada à obsessão por performance, moldou a base técnica e a mentalidade competitiva da equipe.
+          </p>
+
+          <p className="text-white/70 text-base leading-relaxed mb-10">
+            Hoje, como <span className="text-white font-bold">piloto e chefe de equipe</span>, Rodrigo comanda cada detalhe da operação a partir do <span className="text-white font-bold">box de competição</span> em <span className="text-racingYellow italic font-bold">Tarumã (RS)</span>, transformando engenharia aplicada em resultado real. A filosofia segue a mesma desde o início: <span className="text-white font-bold italic">entender o carro por completo, tomar decisões sob pressão e competir para vencer — sempre</span>.
+          </p>
+
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-3">
               <h5 className="font-bold text-racingYellow uppercase text-[10px] tracking-widest flex items-center gap-2">
                 <Target size={14} /> Foco Multimarcas
               </h5>
-              <p className="text-white/60 text-xs">Visão técnica abrangente para extrair o máximo de cada plataforma (Onix, BMW, Polo, Audi).</p>
+              <p className="text-white/60 text-xs">
+                Visão técnica abrangente para extrair o máximo desempenho de cada veículo, atuando em diferentes fabricantes, categorias e arquiteturas técnicas.
+              </p>
             </div>
+
             <div className="space-y-3">
               <h5 className="font-bold text-racingYellow uppercase text-[10px] tracking-widest flex items-center gap-2">
                 <TrendingUp size={14} /> Projetos de Engenharia
               </h5>
-              <p className="text-white/60 text-xs">Desenvolvimento de soluções proprietárias que se tornaram referência no automobilismo gaúcho.</p>
+              <p className="text-white/60 text-xs">
+                Desenvolvimento de soluções proprietárias que se tornaram referência no automobilismo gaúcho.
+              </p>
             </div>
           </div>
-          
+
           <div className="mt-12 flex items-center gap-6">
             <div className="h-[1px] flex-grow bg-white/10"></div>
-            <a href="https://www.instagram.com/rssportsteam/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-racingYellow hover:text-deepBlack hover:border-racingYellow transition-all">
+            <a 
+              href="https://www.instagram.com/rssportsteam/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-racingYellow hover:text-deepBlack hover:border-racingYellow transition-all"
+            >
               <Instagram size={18} />
             </a>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 );
+
 
 const InstagramGallery = () => {
   const posts = [
@@ -527,8 +573,15 @@ const Contact = () => {
                     <Award size={20} />
                   </div>
                   <div>
-                    <p className="text-[8px] font-black uppercase tracking-widest opacity-60">Sede Técnica</p>
-                    <p className="font-racing text-base uppercase">Tarumã, RS</p>
+                   <p className="text-[8px] font-black uppercase tracking-widest opacity-60">
+					  Base de Operações
+					</p>
+					<p className="font-racing text-base uppercase">
+					  Autódromo de Tarumã
+					</p>
+					<p className="text-[10px] uppercase tracking-widest text-white/80">
+					  Viamão / RS
+					</p>
                   </div>
                 </div>
               </div>
@@ -643,7 +696,7 @@ const Contact = () => {
 const Footer = () => (
   <footer className="py-16 bg-deepBlack border-t border-white/5">
    <div className="flex flex-col items-center gap-1 ">
-	  <RSLogo className="h-14"  />
+	  <RSLogo className="h-12"  />
 	  <div className="text-white/30 text-[8px] uppercase font-black tracking-[0.4em] text-center">
 		<p>© 2015 RSSPORTS TEAM <br/> </p>
 		<p>Desenvolvimento & Performance</p>
