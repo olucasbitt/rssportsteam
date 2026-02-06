@@ -12,12 +12,13 @@ import {
 } from 'lucide-react';
 import { ACHIEVEMENTS, FEATURES } from './constants';
 
-const RSLogo = ({ className = "h-14" }: { className?: string }) => (
+const RSLogo = ({ className = "h-12" }: { className?: string }) => (
   <div className={`flex items-center ${className}`}>
     <img 
       src="/imagens/logo2.jpeg" 
       alt="RSSports Desenvolvimentos" 
       className="h-full w-auto object-contain"
+
     />
   </div>
 );
@@ -25,12 +26,7 @@ const RSLogo = ({ className = "h-14" }: { className?: string }) => (
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [activeLink, setActiveLink] = useState('#about');
 
   const navLinks = [
     { name: 'Equipe', href: '#about' },
@@ -39,37 +35,94 @@ const Navbar = () => {
     { name: 'Galeria', href: '#gallery' },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll spy
+  useEffect(() => {
+    const sections = navLinks
+      .map(link => document.querySelector(link.href))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveLink(`#${entry.target.id}`);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px" }
+    );
+
+    sections.forEach(section => observer.observe(section));
+    return () => sections.forEach(section => observer.unobserve(section));
+  }, []);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <nav className={`fixed w-full z-[100] transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-deepBlack/95 py-3 border-b border-racingYellow/20 shadow-2xl' : 'bg-transparent py-6'}`}>
+    <nav
+      className={`
+        fixed w-full z-[100] transition-all duration-300
+        ${isScrolled || isMenuOpen
+          ? 'bg-deepBlack/80 backdrop-blur-md py-2 border-b border-racingYellow/20 shadow-2xl'
+          : 'bg-transparent py-6'}
+      `}
+    >
       <div className="container mx-auto px-6 flex justify-between items-center relative z-[101]">
-        <a href="#" className="hover:opacity-80 transition-opacity">
+        
+        {/* Logo */}
+        <a 
+          href="#about" 
+          onClick={() => setActiveLink('#about')}
+          className={`
+            transition-all duration-300 hover:opacity-80
+            ${isScrolled ? 'scale-90' : 'scale-100'}
+            ${isMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}
+          `}
+        >
           <RSLogo />
         </a>
 
-        {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-8">
+        {/* Desktop */}
+        <div className="hidden lg:flex items-center gap-10">
           {navLinks.map((link) => (
             <a 
               key={link.name} 
-              href={link.href} 
-              className="text-[10px] font-black uppercase tracking-widest text-white/70 hover:text-racingYellow transition-colors"
+              href={link.href}
+              onClick={() => setActiveLink(link.href)}
+              className={`
+                text-[11px] font-medium uppercase tracking-widest transition-all
+                ${activeLink === link.href
+                  ? 'text-racingYellow border-b-2 border-racingYellow pb-1'
+                  : 'text-white/70 hover:text-racingYellow'}
+              `}
             >
               {link.name}
             </a>
           ))}
+
           <a 
             href="#contact" 
-            className="bg-racingYellow text-deepBlack font-black uppercase text-[10px] px-5 py-2 skew-box hover:bg-white transition-all shadow-[0_0_20px_rgba(214,255,0,0.2)]"
+            onClick={() => setActiveLink('#contact')}
+            className="
+              bg-racingYellow text-deepBlack font-black uppercase 
+              text-[10px] px-6 py-2 skew-box
+              hover:bg-white transition-all
+              shadow-[0_8px_30px_rgba(214,255,0,0.25)]
+            "
           >
-            <span className="skew-box-reverse block">Contato</span>
+            Contato
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Button (CORRETO) */}
         <button 
-          className="lg:hidden text-white p-2 outline-none focus:outline-none" 
+          className="lg:hidden text-white p-2 z-[102]"
           onClick={toggleMenu}
           aria-label="Menu"
         >
@@ -77,31 +130,74 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`lg:hidden fixed inset-0 top-0 left-0 w-full h-screen bg-deepBlack z-[99] transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-        <div className="flex flex-col items-center justify-center h-full gap-8 p-10">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="text-2xl font-racing font-black uppercase italic tracking-tighter text-white hover:text-racingYellow transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-          <a 
-            href="#contact" 
-            className="mt-4 bg-racingYellow text-deepBlack font-black uppercase text-center py-4 px-12 skew-box text-sm"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <span className="skew-box-reverse block">Entrar em Contato</span>
-          </a>
-        </div>
-      </div>
+      {/* Backdrop */}
+      {isMenuOpen && (
+        <div 
+          onClick={toggleMenu}
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[98]"
+        />
+      )}
+
+      {/* Mobile Menu - Lateral */}
+      <div 
+  className={`
+    lg:hidden fixed top-0 right-0 w-[85%] max-w-sm h-screen 
+    bg-deepBlack z-[99]
+    transform transition-all duration-500 ease-out
+    ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+    shadow-[-10px_0_40px_rgba(0,0,0,0.6)]
+  `}
+>
+  <div className="flex flex-col items-start justify-center h-full gap-7 px-8">
+
+    {navLinks.map((link) => (
+  <a 
+    key={link.name} 
+    href={link.href}
+    onClick={() => {
+      setActiveLink(link.href);
+      setIsMenuOpen(false);
+    }}
+    className={`
+      text-[16px]
+      font-medium uppercase tracking-widest
+      transition-all hover:translate-x-2
+      ${activeLink === link.href
+        ? 'text-racingYellow'
+        : 'text-white hover:text-racingYellow'}
+    `}
+  >
+    {link.name}
+  </a>
+))}
+
+    <a 
+      href="#contact"
+      onClick={() => {
+        setActiveLink('#contact');
+        setIsMenuOpen(false);
+      }}
+      className="
+        mt-12 
+        bg-racingYellow 
+        text-deepBlack 
+        font-black 
+        uppercase 
+        py-4 px-12 
+        skew-box 
+        text-sm
+        shadow-[0_0_30px_rgba(214,255,0,0.4)]
+      "
+    >
+      Entrar em Contato
+    </a>
+  </div>
+</div>
     </nav>
   );
 };
+
+
 
 const SectionHeading = ({ subtitle, title }: { subtitle: string, title: string }) => (
   <div className="mb-10 relative">
@@ -517,7 +613,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:border-racingYellow outline-none transition-all text-xs resize-none"
-                      placeholder="Descreva brevemente sua proposta..."
+                      placeholder="Descreva brevemente sua proposta que entraremos em contato..."
                     />
                   </div>
 
@@ -546,8 +642,8 @@ const Contact = () => {
 
 const Footer = () => (
   <footer className="py-16 bg-deepBlack border-t border-white/5">
-   <div className="flex flex-col items-center gap-1">
-	  <RSLogo className="h-14" />
+   <div className="flex flex-col items-center gap-1 ">
+	  <RSLogo className="h-14"  />
 	  <div className="text-white/30 text-[8px] uppercase font-black tracking-[0.4em] text-center">
 		<p>© 2015 RSSPORTS TEAM <br/> </p>
 		<p>Desenvolvimento & Performance</p>

@@ -25,6 +25,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Bi-campeã das 12 Horas de Tarumã (2025 e 2026). Onde tudo começou, onde a RSSports domina: resistência, estratégia e performance levadas ao limite por 12 horas.',
     highlight: 'A CASA DA RSSPORTS'
   }
+  
 ];
 
 export const SPONSORS: Sponsor[] = [
