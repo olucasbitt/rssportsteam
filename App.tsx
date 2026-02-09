@@ -65,15 +65,8 @@ return () => sections.forEach(section => observer.unobserve(section));
 const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
 return (
-<nav
-  className={`
-	fixed w-full z-[100] transition-all duration-300
-	${isScrolled || isMenuOpen
-	  ? 'bg-deepBlack/80 backdrop-blur-md py-2 border-b border-racingYellow/20 shadow-2xl'
-	  : 'bg-transparent py-6'}
-  `}
->
-  <div className="container mx-auto px-6 flex justify-between items-center relative z-[101]">
+<nav className="fixed top-0 w-full h-16 bg-black/40 backdrop-blur-md border-b border-lime-400/20 z-50">
+  <div className="flex items-center justify-between px-6 h-full">
 	
 	{/* Logo */}
 	<a 
@@ -212,7 +205,8 @@ const SectionHeading = ({ subtitle, title }: { subtitle: string, title: string }
 );
 
 const Hero = () => (
-<section className="relative h-screen w-full flex items-center overflow-hidden">
+<section className="relative min-h-[100svh] min-h-[100dvh] w-full flex items-start md:items-center overflow-hidden">
+
 <div className="absolute inset-0 bg-gradient-to-r from-deepBlack via-deepBlack/60 to-transparent z-10"></div>
 <div className="absolute inset-0 bg-[#0B0B0B]">
   {/* Onix Verde - Representação Visual Premium */}
@@ -223,9 +217,9 @@ const Hero = () => (
   />
 </div>
 
-<div className="container mx-auto px-6 relative z-20 pt-24">
+<div className="container mx-auto px-6 relative z-20 pt-[72px] md:pt-24">
   <div className="max-w-3xl">
-	<div className="inline-flex items-center gap-2 px-3 py-1 bg-racingYellow text-deepBlack skew-box mb-6 shadow-[0_0_20px_rgba(214,255,0,0.25)]">
+	<div className="inline-flex items-center gap-2 px-3 py-1 bg-racingYellow text-deepBlack skew-box mt-6 sm:mt-8 mb-6 shadow-[0_0_20px_rgba(214,255,0,0.25)]">
 	  <span className="skew-box-reverse text-[9px] font-black uppercase tracking-widest flex items-center gap-2">
 		<Award size={12} /> A primeira equipe campeã das 500 Milhas de Interlagos
 	  </span>
@@ -493,22 +487,39 @@ const Achievements = () => (
 </section>
 );
 
+const sponsors = [
+  { name: "Toyota", logo: "/logos/toyota.png" },
+  { name: "RSSports", logo: "/logos/rssports.png" },
+  { name: "Chevrolet", logo: "/logos/chevrolet.png" },
+  { name: "Audi", logo: "/logos/audi.png" },
+  { name: "BMW", logo: "/logos/bmw.png" },
+]; 
 const SponsorsMarquee = () => (
-<section className="py-12 bg-deepBlack border-y border-white/5 overflow-hidden">
-<div className="animate-marquee">
-  {[...Array(10)].map((_, i) => (
-	<div key={i} className="flex items-center gap-16 px-8">
-	  <span className="text-white/20 font-racing font-black text-2xl italic uppercase">TOYOTA</span>
-	  <span className="text-white/20 font-racing font-black text-2xl italic uppercase">RSSPORTS</span>
-	  <span className="text-white/20 font-racing font-black text-2xl italic uppercase">CHEVROLET</span>
-	  <span className="text-white/20 font-racing font-black text-2xl italic uppercase">RSSPORTS</span>
-	  <span className="text-white/20 font-racing font-black text-2xl italic uppercase">AUDI</span>
-	  <span className="text-white/20 font-racing font-black text-2xl italic uppercase">BMW</span>
-	</div>
-  ))}
-</div>
+	
+ <section className="py-12 bg-deepBlack border-y border-white/5 overflow-hidden">
+  <div className="relative overflow-hidden">
+    <div className="flex w-max animate-marquee">
+      {[...Array(2)].map((_, i) => (
+        <div
+          key={i}
+          className="flex items-center gap-20 px-10 shrink-0"
+        >
+          {sponsors.map((sponsor) => (
+            <img
+              key={sponsor.name + i}
+              src={sponsor.logo}
+              alt={sponsor.name}
+              className="h-10 md:h-12 opacity-30 grayscale shrink-0"
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
 </section>
-); 
+
+);
+ 
 
 const Contact = () => {
 const [submitted, setSubmitted] = useState(false);
